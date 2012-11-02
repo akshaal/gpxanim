@@ -59,11 +59,11 @@ var Animate = (function($) {
         url: url,
         format: new OpenLayers.Format.GPX2({
           extractStyles: false, // fixme: probably not used
-	  //maxDepth: 2, // fixme: what is this?
+      //maxDepth: 2, // fixme: what is this?
           extractAttributes: true,
-	  extractTracks: true,
-	  extractRoutes: false,
-	  extractWaypoints: false
+      extractTracks: true,
+      extractRoutes: false,
+      extractWaypoints: false
         })
       }),
       style: { strokeColor: colour,
@@ -85,11 +85,10 @@ var Animate = (function($) {
         //new OpenLayers.Control.PanZoom()
       ],
       layers: [
-        new OpenLayers.Layer.OSM.Mapnik("OSM"),
-        new OpenLayers.Layer.OSM.CycleMap("Cycle"),
-        new OpenLayers.Layer.OSM.MapQuest("MapQuest-OSM"),
-        new OpenLayers.Layer.Google("Google Streets",
-                                    {numZoomLevels: 20}),
+        new OpenLayers.Layer.OSM.Mapnik("OSM", {buffer: 5}),
+        new OpenLayers.Layer.OSM.CycleMap("Cycle", {buffer: 5}),
+        new OpenLayers.Layer.OSM.MapQuest("MapQuest-OSM", {buffer: 5}),
+        new OpenLayers.Layer.Google("Google Streets", {numZoomLevels: 20, buffer: 5}),
       ]
     });
 
@@ -106,7 +105,7 @@ var Animate = (function($) {
 
     gpx_layer.events.register('loadend', gpx_layer, function() {
       var bounds = this.getDataExtent();
-      //map.zoomToExtent(bounds);   
+      //map.zoomToExtent(bounds);
       map.setCenter(bounds.getCenterLonLat(), zoom);
     });
 
@@ -165,7 +164,7 @@ var Animate = (function($) {
   var setup_counter = function(show) {
     var $cont = $(".clipper"), $el = $("#counter");
     var pos = $cont.position();
-    
+
     $el.css({ "position": "absolute",
               "left": pos.left + $cont.width() - $el.outerWidth(),
               "top": pos.top + $cont.height() - $el.outerHeight() })
@@ -355,7 +354,7 @@ OpenLayers.Strategy.Animate = OpenLayers.Class(OpenLayers.Strategy, {
    * Property: step
    * {Integer} The time in ms to advance each frame
    */
-  step: 1000, 
+  step: 1000,
 
   /**
    * Property: interval
