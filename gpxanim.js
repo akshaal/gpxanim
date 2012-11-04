@@ -49,6 +49,7 @@ var Animate = (function($) {
 
   var create_animate_layer = function(name, url, colour) {
     var lgpx = new OpenLayers.Layer.Vector.Animate(name, url, {
+      renderers: ["Canvas"],
       strategies: [
         new OpenLayers.Strategy.Fixed(),
         new OpenLayers.Strategy.Animate({
